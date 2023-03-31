@@ -18,7 +18,7 @@ const create = () => form.post(route("listing.store"));
 <template>
     <!-- .prevent is e.preventDefault - prevent it from reloading after submit -->
     <form @submit.prevent="create">
-        <div class="grid grid-cols-6 gap-4">
+        <div class="grid grid-cols-6 gap-4 lg:w-1/2 mx-auto">
             <div class="col-span-2">
                 <label class="label">Beds</label>
                 <input type="text" v-model.number="form.beds" class="input" />

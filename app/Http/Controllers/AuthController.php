@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 class AuthController extends Controller
 {
     // Display the form to sign in
-    public function create() {}
+    public function create() {
+        return inertia("Auth/Login");
+    }
 
     // WHen the form is submitted - create session if valid
     public function store() {}

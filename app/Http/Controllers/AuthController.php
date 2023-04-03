@@ -17,19 +17,20 @@ class AuthController extends Controller
     // WHen the form is submitted - create session if valid
     public function store(Request $request) {
         
-        if (Auth::attempt($request->validate([
-            "email" => "required|string|email",
-            "password" => "required|string"
+        if (!Auth::attempt($request->validate([
+            'email' => 'required|string|email', // This is to find specific user in user table by that key (so this can also be username but make sure it exist in the table)
+            'password' => 'required|string' // This is necessary
         ]), true /* "remember me" */)) {
             throw ValidationException::withMessages([
-                "email" => "Authentication failed"
+                'email' => 'Authentication failed'
             ]);
         }
 
         // regenerate to avoid attackers using the same ID to send to victims which may get their data
         $request->session()->regenerate();
 
-        return redirect()->intended();
+        // if intended() has no argument, by default it will take you to "/" 
+        return redirect()->intended("/listing");
     }
 
     // Sign out

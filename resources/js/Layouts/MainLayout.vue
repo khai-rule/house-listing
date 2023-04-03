@@ -1,13 +1,3 @@
-<script setup>
-import { Link, usePage } from "@inertiajs/vue3";
-import { ref, computed } from "vue";
-
-//* page.props.flash.success
-const page = usePage();
-// This just makes it shorter to write in the HTML
-const flashSuccess = computed(() => page.props.flash.success);
-</script>
-
 <template>
     <header
         class="border-b, border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 w-full"
@@ -22,10 +12,15 @@ const flashSuccess = computed(() => page.props.flash.success);
                 >
                     <Link :href="route('listing.index')">Laravel</Link>
                 </div>
-                <div>
+                <div v-if="user" class="flex items-center gap-4">
+                    <div class="text-sm text-gray-500">{{ user.name }}</div>
                     <Link :href="route('listing.create')" class="btn-primary"
                         >+ New Listing</Link
                     >
+                    <div>Logout</div>
+                </div>
+                <div v-else>
+                    <Link :href="route('login')">Sign In</Link>
                 </div>
             </nav>
         </div>
@@ -41,3 +36,14 @@ const flashSuccess = computed(() => page.props.flash.success);
         <slot></slot>
     </main>
 </template>
+
+<script setup>
+import { Link, usePage } from "@inertiajs/vue3";
+import { ref, computed } from "vue";
+
+//* page.props.flash.success
+const page = usePage();
+// This just makes it shorter to write in the HTML
+const flashSuccess = computed(() => page.props.flash.success);
+const user = computed(() => page.props.user);
+</script>

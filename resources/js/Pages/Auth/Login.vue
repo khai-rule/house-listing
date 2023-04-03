@@ -1,6 +1,7 @@
 <script setup>
 import { useForm } from "@inertiajs/vue3";
 
+// The useForm is automatically connected to the Auth Controller
 const form = useForm({
     email: null,
     password: null,
@@ -13,14 +14,14 @@ const login = () => form.post(route("login.store"));
     <form @submit.prevent="login">
         <div class="w-1/2 mx-auto">
             <div class="py-2">
-                <label for="email" class="label">E-Mail (username)</label>
+                <label for="email" class="label">E-Mail</label>
                 <input
                     id="email"
                     type="text"
                     class="input"
                     v-model="form.email"
                 />
-                <div class="input-error">Potential Erros</div>
+                <div v-if="form.errors.email" class="input-error">{{ form.errors.email }}</div>
             </div>
 
             <div class="py-2">
@@ -31,7 +32,7 @@ const login = () => form.post(route("login.store"));
                     class="input"
                     v-model="form.password"
                 />
-                <div class="input-error">Potential Erros</div>
+                <div v-if="form.errors.password" class="input-error">{{ form.errors.password }}</div>
             </div>
 
             <div class="py-4">

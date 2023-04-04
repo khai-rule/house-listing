@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 
 class ListingController extends Controller
 {
+
+    //? This is an alternative way of what we did in web.php --> adding routes protection
+    // public function __construct()
+    // {
+    //     $this->middleware("auth")->except(["index", "show"]);
+    // }
+
     /**
      * Display a listing of the resource.
      */

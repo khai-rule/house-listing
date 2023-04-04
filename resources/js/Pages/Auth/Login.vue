@@ -25,7 +25,7 @@ const login = () => form.post(route("login.store"));
             </div>
 
             <div class="py-2">
-                <label for="password" class="label">Password (username)</label>
+                <label for="password" class="label">Password</label>
                 <input
                     id="password"
                     type="password"

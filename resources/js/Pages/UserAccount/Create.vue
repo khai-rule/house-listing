@@ -71,5 +71,5 @@ const form = useForm({
     password_confirmation: null, // This fieldname needs to be exactly this
 });
 
-const register = () => form.post(route(""));
+const register = () => form.post(route("user-account.store"));
 </script>

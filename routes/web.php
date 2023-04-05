@@ -38,7 +38,7 @@ Route::delete("logout", [AuthController::class, "destroy"])
     ->name("logout");
 
 Route::resource("user-account", UserAccountController::class)
-    ->only(["create"]);
+    ->only(["create", "store"]);
 /*
 * This is automatically generated from the controller
 /login/create

@@ -37,7 +37,8 @@ class ListingController extends Controller
      */
     public function store(Request $request)
     {
-        Listing::create(
+        //* Listing::create(  This is what we have at the start
+        $request->user()->listings()->create( //* We change it to this so that every listing we create will be associated to the current user
             $request->validate([
                 "beds" => "required|integer|min:0|max:20",
                 "baths" => "required|integer|min:0|max:20",

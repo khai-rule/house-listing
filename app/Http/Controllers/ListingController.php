@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Listing;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ListingController extends Controller
 {
@@ -13,6 +14,11 @@ class ListingController extends Controller
     // {
     //     $this->middleware("auth")->except(["index", "show"]);
     // }
+
+    public function __construct()
+    {
+        $this->authorizeResource(Listing::class, "listing");
+    }
 
     /**
      * Display a listing of the resource.
@@ -29,6 +35,7 @@ class ListingController extends Controller
      */
     public function create()
     {
+        // $this->authorize("create". Listing::class);
         return inertia("Listing/Create");
     }
 
@@ -60,9 +67,15 @@ class ListingController extends Controller
      */
     public function show(Listing $listing)
     {
-        return inertia("Listing/Show", [
-            "listing" => $listing
-        ]);
+        // if (Auth::user()->cannot("view", $listing)) abort(403);  // You can write this so user will see 403 page. Policy "view" must return false
+        //* $this->authorize("view", $listing); // Preferred way of writing above code // Policy "view" must return false
+
+        return inertia(
+            "Listing/Show", 
+            [
+                "listing" => $listing
+            ]
+        );
     }
 
     /**

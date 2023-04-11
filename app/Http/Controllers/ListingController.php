@@ -25,9 +25,15 @@ class ListingController extends Controller
      */
     public function index()
     {
-        return inertia("Listing/Index", [
-            "listings" => Listing::all()
-        ]);
+        return inertia("Listing/Index", 
+            [
+                // "listings" => Listing::all()
+
+                // Sort by newest and paginate
+                "listings" => Listing::orderByDesc("created_at")
+                    ->paginate(10)
+            ]
+        );
     }
 
     /**

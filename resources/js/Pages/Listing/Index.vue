@@ -1,4 +1,5 @@
 <template>
+    <Filters />
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         <!-- think of v-for as like a map(). This will render all items in the array -->
         <Listing
@@ -7,7 +8,7 @@
             :listing="listing"
         />
 
-        <div v-if="listings.data.length" class="w-full flex justify-center my-8">
+        <div v-if="listings.data.length" class="w-full flex justify-center my-4">
             <Pagination :links="listings.links" />
         </div>
     </div>
@@ -16,6 +17,7 @@
 <script setup>
 import Listing from "@/Pages/Listing/Index/Components/Listing.vue";
 import Pagination from "@/Components/UI/Pagination.vue";
+import Filters from "@/Pages/Listing/Index/Components/Filters.vue";
 
 // Once we add paginate, it is no longer an array
 // defineProps({

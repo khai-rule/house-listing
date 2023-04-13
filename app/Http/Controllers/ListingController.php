@@ -23,15 +23,62 @@ class ListingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $filters = $request->only([
+            "priceFrom", "priceTo", "beds", "baths", "areaFrom", "areaTo"
+        ]);
+
+        //* You don't even need to create $query variable and can just pass it down below directly if you want
+        $query = Listing::orderByDesc("created_at")  //  Sort by newest 
+            ->when(
+                $filters["priceFrom"] ?? false,
+                fn ($query, $value) => $query->where("price", ">=", $value)
+            )->when(
+                $filters["priceTo"] ?? false,
+                fn ($query, $value) => $query->where("price", "<=", $value)
+            )->when(
+                $filters["baths"] ?? false,
+                fn ($query, $value) => $query->where("baths", (int)$value < 6 ? "=" : ">=", $value) // how we handle 6+
+            )->when(
+                $filters["beds"] ?? false,
+                fn ($query, $value) => $query->where("beds", (int)$value < 6 ? "=" : ">=", $value)
+            )->when(
+                $filters["areaFrom"] ?? false,
+                fn ($query, $value) => $query->where("area", ">=", $value)
+            )->when(
+                $filters["areaTo"] ?? false,
+                fn ($query, $value) => $query->where("area", ">=", $value)
+            );
+
+        //? Below functions the same way as above which filters based on the query
+        //? Above is the preferred way of writing
+        // if ($filters["priceFrom"] ?? false) {
+        //     $query->where("price", ">=", $filters["priceFrom"]);
+        // }
+        // if ($filters["priceTo"] ?? false) {
+        //     $query->where("price", "<=", $filters["priceTo"]);
+        // }
+        // if ($filters["baths"] ?? false) {
+        //     $query->where("baths", $filters["baths"]);
+        // }
+        // if ($filters["beds"] ?? false) {
+        //     $query->where("beds", $filters["beds"]);
+        // }
+        // if ($filters["areaTo"] ?? false) {
+        //     $query->where("area", ">=", $filters["areaTo"]);
+        // }
+        // if ($filters["areaFrom"] ?? false) {
+        //     $query->where("area", "<=", $filters["areaFrom"]);
+        // }
+
         return inertia("Listing/Index", 
             [
-                // "listings" => Listing::all()
+                //* "listings" => Listing::all() // show all listings
 
-                // Sort by newest and paginate
-                "listings" => Listing::orderByDesc("created_at")
-                    ->paginate(10)
+                "filters" => $filters,
+                "listings" => $query->paginate(10) // paginate after sorting
+                    ->withQueryString() // This will look at the url to see if there is a query
             ]
         );
     }

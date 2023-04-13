@@ -1,5 +1,5 @@
 <template>
-    <Filters />
+    <Filters :filters="filters"/>
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         <!-- think of v-for as like a map(). This will render all items in the array -->
         <Listing
@@ -26,5 +26,6 @@ import Filters from "@/Pages/Listing/Index/Components/Filters.vue";
 
 defineProps({
     listings: Object,
+    filters: Object
 });
 </script>

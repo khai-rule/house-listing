@@ -24,9 +24,11 @@ class ListingController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
+
     {
         $filters = $request->only([
             "priceFrom", "priceTo", "beds", "baths", "areaFrom", "areaTo"
+
         ]);
 
         //* You don't even need to create $query variable and can just pass it down below directly if you want

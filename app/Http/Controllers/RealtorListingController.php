@@ -19,7 +19,8 @@ class RealtorListingController extends Controller
         // dd($request->all());
         
         $filters = [
-            "deleted" => $request->boolean("deleted") // We have to add "boolean" because php by default return a strings
+            "deleted" => $request->boolean("deleted"), // We have to add "boolean" because php by default return a strings
+            ...$request->only(["by", "order"])
         ];
 
         return inertia(
@@ -27,7 +28,7 @@ class RealtorListingController extends Controller
             [
                 "listings" => Auth::user()
                     ->listings()
-                    ->mostRecent()
+                    // ->mostRecent()
                     ->filter($filters)
                     ->get()
             ]

@@ -1,28 +1,6 @@
-<script setup>
-import { useForm } from "@inertiajs/vue3";
-
-const props = defineProps({
-    listing: Object,
-});
-
-const form = useForm({
-    beds: props.listing.beds,
-    baths: props.listing.baths,
-    area: props.listing.area,
-    city: props.listing.city,
-    street: props.listing.street,
-    code: props.listing.code,
-    street_nr: props.listing.street_nr,
-    price: props.listing.price,
-});
-
-const update = () =>
-    form.put(route("listing.update", { listing: props.listing.id }));
-</script>
-
 <template>
     <!-- .prevent is e.preventDefault - prevent it from reloading after submit -->
-    <form @submit.prevent="update">
+    <form @submit.prevent="create">
         <div class="grid grid-cols-6 gap-4 lg:w-1/2 mx-auto">
             <div class="col-span-2">
                 <label class="label">Beds</label>
@@ -89,21 +67,26 @@ const update = () =>
             </div>
 
             <div class="col-span-2">
-                <button type="submit" class="btn-primary">Update</button>
+                <button type="submit" class="btn-primary">Create</button>
             </div>
         </div>
     </form>
 </template>
 
-<style scoped>
-label {
-    margin-right: 2em;
-}
-div {
-    padding: 2px;
-}
-input[type="text"] {
-    margin: 8px 0;
-    outline: 1px solid black;
-}
-</style>
+<script setup>
+import { useForm } from "@inertiajs/vue3";
+
+const form = useForm({
+    beds: 0,
+    baths: 0,
+    area: 0,
+    city: null,
+    street: null,
+    code: null,
+    street_nr: null,
+    price: 0,
+});
+
+const create = () => form.post(route("realtor.listing.store"));
+</script>
+

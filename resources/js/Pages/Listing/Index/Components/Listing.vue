@@ -27,11 +27,7 @@ const { monthlyPayment } = useMonthlyPayment(props.listing.price, 2.5, 25);
                 </div>
             </Link>
         </div>
-        <div>
-            <Link :href="route('listing.edit', { listing: listing.id })"
-                >Edit</Link
-            >
-        </div>
+
         <!-- <div>
              By default the method is GET. So we have to specify for this
             <Link

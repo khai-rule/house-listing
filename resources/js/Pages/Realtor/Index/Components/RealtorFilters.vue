@@ -72,10 +72,12 @@ const sortBy = {
 const sortOption = computed(() => sortBy[filterForm.by]);
 
 const props = defineProps({
-    filters: Object,
+    filters: Array,
 });
 
-console.log(props.filters.deleted);
+
+
+console.log(props.filters);
 
 const filterForm = reactive({
     deleted: props.filters.deleted ?? false,

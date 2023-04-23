@@ -7,6 +7,7 @@
                     id="deleted"
                     type="checkbox"
                     class="h-4 w-4 rounded borders-gray-300 text-indigo-600 focus:ring-indigo-500"
+                    checked="checked"
                 />
                 <label for="delete">Delete</label>
             </div>
@@ -70,10 +71,16 @@ const sortBy = {
 
 const sortOption = computed(() => sortBy[filterForm.by]);
 
+const props = defineProps({
+    filters: Object,
+});
+
+console.log(props.filters.deleted);
+
 const filterForm = reactive({
-    deleted: false,
-    by: "created_at",
-    order: "desc",
+    deleted: props.filters.deleted ?? false,
+    by: props.filters.by ?? "created_at",
+    order: props.filters.order ?? "desc",
 });
 
 // reactive / ref / computed

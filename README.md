@@ -16,3 +16,6 @@ Topics of interest / covered:
 - Inertia.js
 - Tailwind CSS
 
+## Bugs / Backlog
+- Flash Messages
+- Preview Deleted Listings

@@ -43,7 +43,8 @@ Route::prefix("realtor")
     ->middleware("auth")
     ->group(function() {
         Route::resource("listing", RealtorListingController::class)
-            ->only(["index", "destroy", "edit", "update", "create", "store"]);
+            ->only(["index", "destroy", "edit", "update", "create", "store"])
+            ->withTrashed();
     });
 /*
 * This is automatically generated from the controller

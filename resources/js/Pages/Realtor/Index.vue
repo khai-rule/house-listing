@@ -65,12 +65,12 @@
                         v-else
                         class="btn-outline text-xs font-medium"
                         :href="
-                            route('realtor.listing.destroy', {
+                            route('realtor.listing.restore', {
                                 listing: listing.id,
                             })
                         "
                         as="button"
-                        method="delete"
+                        method="put"
                         >Restore</Link
                     >
                 </div>
